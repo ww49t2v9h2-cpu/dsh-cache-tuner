@@ -1,0 +1,22 @@
+# ============================================================================
+# dsh-cache-tuner 的 bundle patch —— 把本插件挂进 DSH 配置树
+# ============================================================================
+#   insert: 往配置树里添加插件行（entry）
+#     id   —— 行标识（本插件的「entry id」= cache-tuner）
+#     name —— 模块名，解析到本包 package.json 的 main（宿主半侧 lib/index.js）
+#   三处标识必须一致：
+#     · 本文件的行 id       -> cache-tuner
+#     · 宿主 lib/index.js   -> export const name = 'cache-tuner'
+#     · 客户端 lib/client.js -> exports.name = 'cache-tuner'
+#   而客户端 bundle 的 id 必须等于包名 dsh-cache-tuner。
+#
+#   config 传给宿主半侧的 apply(ctx, config)，作为默认值；
+#   运行时改动由插件自己持久化到 $DSH_HOME/storages/cache-tuner/settings.json。
+# ============================================================================
+- insert:
+    - id: cache-tuner
+      name: 'dsh-cache-tuner'
+      config:
+        enabled: true
+        suppressRuntimeContext: false
+        stableTools: true

@@ -1,0 +1,51 @@
+{
+  "name": "dsh-cache-tuner",
+  "version": "0.2.0",
+  "description": "DeepSeek 前缀缓存调优器：按步统计缓存命中率、对缓存断点做「哪个分区/上下文/工具变了」的因果归因，并按实时单价折算今日/7 天/30 天省下的钱。",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": { "default": "./lib/index.js" },
+    "./client": { "default": "./lib/client.js" },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek",
+    "prefix-cache",
+    "prompt-cache",
+    "cache-hit-rate",
+    "token-savings",
+    "cost-optimization",
+    "observability",
+    "cordis-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Migratory_bird/dsh-cache-tuner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Migratory_bird/dsh-cache-tuner/issues"
+  },
+  "homepage": "https://github.com/Migratory_bird/dsh-cache-tuner#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node --check lib/index.js && node --check lib/client.js && node --check lib/model.js && node --check lib/savings.js",
+    "test": "node lib/verify.mjs && node lib/verify-savings.mjs",
+    "verify": "npm run check && npm test"
+  },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": { "platform": "web", "inject": ["@deepseek-ai/dsh-client-ui-slots"] }
+  }
+}
